@@ -9,8 +9,7 @@ uses
   ACPUnit in 'ACPUnit.pas',
   UnitM16 in 'UnitM16.pas',
   OutUnit in 'OutUnit.pas',
-  UnitMoth in 'UnitMoth.pas',
-  TestUnit_N1_1 in 'TestUnit_N1_1.pas';
+  UnitMoth in 'UnitMoth.pas';
 
 {$R *.res}
 

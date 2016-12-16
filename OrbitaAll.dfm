@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 194
-  Top = 148
+  Left = 126
+  Top = 145
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1057#1087#1077#1094#1080#1072#1083#1100#1085#1086#1077' '#1087#1088#1086#1075#1088#1072#1084#1084#1085#1086#1077' '#1086#1073#1077#1089#1087#1077#1095#1077#1085#1080#1077' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1080' '#1088#1077#1075#1080#1089#1090#1088#1072#1094#1080#1080
-  ClientHeight = 800
-  ClientWidth = 1713
+  ClientHeight = 688
+  ClientWidth = 1404
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -72,24 +72,11 @@ object Form1: TForm1
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object lblTestResult: TLabel
-    Left = 1136
-    Top = 96
-    Width = 62
-    Height = 24
-    Caption = #1054#1090#1095#1077#1090
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -19
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
   object GroupBox2: TGroupBox
-    Left = 1424
+    Left = 1128
     Top = 8
-    Width = 209
-    Height = 385
+    Width = 273
+    Height = 585
     Caption = #1054#1090#1083#1072#1076#1082#1072
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -97,7 +84,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     object Label2: TLabel
       Left = 157
       Top = 1
@@ -113,9 +100,9 @@ object Form1: TForm1
     end
     object Memo1: TMemo
       Left = 8
-      Top = 16
-      Width = 193
-      Height = 625
+      Top = 24
+      Width = 257
+      Height = 553
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -661,7 +648,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     OnClick = tlmWriteBClick
   end
   object Panel2: TPanel
@@ -669,7 +656,7 @@ object Form1: TForm1
     Top = 21
     Width = 726
     Height = 116
-    TabOrder = 6
+    TabOrder = 5
     object LabelHeadF: TLabel
       Left = 16
       Top = 8
@@ -1180,7 +1167,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     OnClick = startReadACPClick
   end
   object startReadTlmB: TButton
@@ -1195,7 +1182,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
     OnClick = startReadTlmBClick
   end
   object propB: TButton
@@ -1210,7 +1197,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     OnClick = propBClick
   end
   object rb1: TRadioButton
@@ -1226,7 +1213,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 8
     TabStop = True
   end
   object rb2: TRadioButton
@@ -1241,39 +1228,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 10
-  end
-  object btnAutoTest: TButton
-    Left = 1136
-    Top = 8
-    Width = 273
-    Height = 81
-    Caption = #1040#1074#1090#1086#1084#1072#1090#1080#1095#1077#1089#1082#1072#1103' '#1087#1088#1086#1074#1077#1088#1082#1072
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 2
-    OnClick = btnAutoTestClick
-  end
-  object mmoTestResult: TMemo
-    Left = 1136
-    Top = 128
-    Width = 273
-    Height = 457
-    ScrollBars = ssBoth
-    TabOrder = 11
-  end
-  object btn1: TButton
-    Left = 1296
-    Top = 624
-    Width = 75
-    Height = 25
-    Caption = 'btn1'
-    TabOrder = 12
-    OnClick = btn1Click
+    TabOrder = 9
   end
   object TimerOutToDia: TTimer
     Enabled = False
@@ -1325,29 +1280,5 @@ object Form1: TForm1
     OnTimer = tmrContTimer
     Left = 12
     Top = 192
-  end
-  object idhttp1: TIdHTTP
-    MaxLineAction = maException
-    ReadTimeout = 0
-    AllowCookies = True
-    ProxyParams.BasicAuthentication = False
-    ProxyParams.ProxyPort = 0
-    Request.ContentLength = -1
-    Request.ContentRangeEnd = 0
-    Request.ContentRangeStart = 0
-    Request.ContentType = 'text/html'
-    Request.Accept = 'text/html, */*'
-    Request.BasicAuthentication = False
-    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
-    HTTPOptions = [hoForceEncodeParams]
-    Left = 1384
-    Top = 64
-  end
-  object idpsrvr1: TIdUDPServer
-    Bindings = <>
-    DefaultPort = 6008
-    OnUDPRead = idpsrvr1UDPRead
-    Left = 1360
-    Top = 64
   end
 end

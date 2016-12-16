@@ -8,7 +8,7 @@ uses
   IdHTTP, StdCtrls, Series, TeEngine, TeeProcs, Chart, ExtCtrls,
   Lusbapi,  Math, Buttons, ComCtrls, xpman, DateUtils,
   MPlayer,iniFiles,StrUtils,syncobjs,ExitForm, Gauges,TLMUnit,LibUnit,ACPUnit,UnitM16,
-  OutUnit,UnitMoth,TestUnit_N1_1, IdUDPBase, IdUDPServer,IdSocketHandle;
+  OutUnit,UnitMoth,IdUDPBase, IdUDPServer,IdSocketHandle;
 //Lusbapi-библиотека для работы с АЦП Е20-10
 //Visa_h-библиотека для работы с генератором и вольтметром
 
@@ -88,12 +88,6 @@ type
     lbl1: TLabel;
     Button1: TButton;
     tmrCont: TTimer;
-    btnAutoTest: TButton;
-    lblTestResult: TLabel;
-    mmoTestResult: TMemo;
-    idhttp1: TIdHTTP;
-    idpsrvr1: TIdUDPServer;
-    btn1: TButton;
     procedure startReadACPClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -126,11 +120,8 @@ type
       Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure upGistTempSizeClick(Sender: TObject);
     procedure downGistTempSizeClick(Sender: TObject);
-    procedure btn1Click(Sender: TObject);
     procedure tmrContTimer(Sender: TObject);
     procedure btnAutoTestClick(Sender: TObject);
-    procedure idpsrvr1UDPRead(Sender: TObject; AData: TStream;
-      ABinding: TIdSocketHandle);
   private
     { Private declarations }
   public
@@ -3718,22 +3709,6 @@ begin
   end;
 end;
 
-procedure TForm1.btn1Click(Sender: TObject);
-begin
-  //flagTrue:=true;
-  if nResist<500 then
-  begin
-    changeResistance(nResist);
-    nResist:=nResist+dResist;
-  end
-  else
-  begin
-    nResist:=1;
-  end;
-
-  
-end;
-
 procedure TForm1.tmrContTimer(Sender: TObject);
 var
   orbAdrCount: integer;
@@ -3765,82 +3740,9 @@ begin
 end;
 
 procedure TForm1.btnAutoTestClick(Sender: TObject);
-var
-  allTestFlag:Boolean;
 begin
-  //считаем данные из конфигурационного файла проверки
-  //если возникли ошибки то дальше не идем
-
-  if (iniRead) then
-  begin
-    if testOnAllTestDevices then
-    begin
-      allTestFlag:=True;
-      //пункт 1.1.10.2
-      if (Test_1_1_10_2) then
-      begin
-        Form1.mmoTestResult.Lines.Add('Пункт 1.1.10.2:Норма');
-      end
-      else
-      begin
-        Form1.mmoTestResult.Lines.Add('Пункт 1.1.10.2:Не Норма');
-        allTestFlag:=false;
-      end;
-
-      {if (allTestFlag) then
-      begin
-        if () then
-        begin
-          Form1.mmoTestResult.Lines.Add('Пункт :Норма');
-        end
-        else
-        begin
-          Form1.mmoTestResult.Lines.Add('Пункт :Не Норма');
-          allTestFlag:=false;
-        end;
-      end
-      else
-      begin
-        Form1.mmoTestResult.Lines.Add('Проверка модуля N1-1:Не Норма');
-      end;}
-    end
-    else
-    begin
-      ShowMessage('Не все приборы для проведения проверки в составе рабочего места!');
-    end;
-  end
-  else
-  begin
-    ShowMessage('Ошибка при работе с конфигурационном файле');
-  end;
 end;
 
 //udp для отправки команд на источник питания АКИП.
-procedure TForm1.idpsrvr1UDPRead(Sender: TObject; AData: TStream;
-  ABinding: TIdSocketHandle);
-var
-  A:array[1..1000] of char;
-  A1:string;
-  I:double;
-begin
-  if ABinding.PeerIp = IP_POWER_SUPPLY_1 then
-  begin
-    AData.Read(A,aData.size);
-    if(A[1]='O') then
-    begin
-        AkipOffOnState:=True;
-        //Form3.Timer1.Enabled:=False;
-    end;
-    if A[1] <> 'O' then
-    begin
-        A1:=A[5]+'.'+A[6]+A[7]+A[8];
-        //CurrentFromPower:=A1;
-        AkipOffOnState:=True;
-        PowerRequest:=True;
-        //Form3.Timer1.Enabled:=False;
-    end;
-  end;
-end;
-
 end.
 
