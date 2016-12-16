@@ -9,8 +9,8 @@ uses
   Lusbapi,  Math, Buttons, ComCtrls, xpman, DateUtils,
   MPlayer,iniFiles,StrUtils,syncobjs,ExitForm, Gauges,TLMUnit,LibUnit,ACPUnit,UnitM16,
   OutUnit,UnitMoth,IdUDPBase, IdUDPServer,IdSocketHandle;
-//Lusbapi-библиотека для работы с АЦП Е20-10
-//Visa_h-библиотека для работы с генератором и вольтметром
+  //Lusbapi-библиотека для работы с АЦП Е20-10
+  //Visa_h-библиотека для работы с генератором и вольтметром
 
 
 type
@@ -169,20 +169,13 @@ type
     constructor CreateData;
 
     //m08,04,02,01
-    //
     //передаем начало предидущего маркера (номер точки),
-
-
-
     function TestMarker(begNumPoint: integer; const pointCounter: integer): boolean;
-
-
-
     function BuildBusValue(highVal:word;lowerVal:word):word;
     function CollectBusArray(var iBusArray:integer):boolean;
   end;
 
-  
+
 
 
 var
@@ -2339,7 +2332,7 @@ begin
   //setlength(data.masFastVal, trunc(form1.fastGist.BottomAxis.Maximum)-2);
   //data.masFastVal:=nil;
   //intPointNum:=trunc(form1.fastGist.BottomAxis.Maximum);
-  setlength({data.}masFastVal, intPointNum);
+  setlength(masFastVal, intPointNum);
   //проиниц. счетчики для подсч. колич. каждого типа адресов
   //ам
   acumAnalog := 0;
@@ -2356,7 +2349,7 @@ begin
   //Получение правильного списка адресов
   GetAddrList;
   //Установка списка правильных адресов
-  SetOrbAddr; 
+  SetOrbAddr;
   //отключение масштабирования
   form1.gistSlowAnl.AllowZoom:=false;
   form1.gistSlowAnl.AllowPanning:=pmNone;
@@ -2367,7 +2360,7 @@ begin
   form1.tempGist.AllowZoom:=False;
   form1.tempGist.AllowPanning:=pmNone;
   //проверим правильность адресов
-  if ({data.}GenTestAdrCorrect) then
+  if (GenTestAdrCorrect) then
   begin
     //объект для работы с сигналом
     if infNum=0 then
@@ -2393,7 +2386,7 @@ begin
       //проиниц. флаг выхода из всех циклов
       flagEnd:=false;
       //заполнение массива параметров.
-      if ({data.}FillAdressParam) then
+      if (FillAdressParam) then
       begin
         form1.startReadACP.Caption := 'Стоп';
         //режим работы приема
@@ -2461,7 +2454,7 @@ begin
 
 
       //CloseFile(textTestFile);
-      {data.}graphFlagFastP := false;
+      graphFlagFastP := false;
 
       //wait(50);
 
@@ -2780,7 +2773,7 @@ end;}
 //==============================================================================
 //Сбор 32-х разрядных слов и выводим в файл
 //==============================================================================
-procedure FillSwatWord;
+{procedure FillSwatWord;
 var
   iOrbWord:integer;
   wordToFile:integer;
@@ -2788,7 +2781,7 @@ begin
   iOrbWord:=1;
   wordToFile:=0;
   //сбор слов вариант 2
-  while iOrbWord<={length(masGroup)}masGroupSize do
+  while iOrbWord<=masGroupSize do
   begin
      //проверяем 11 бит, холостое слово или нет
     if (masGroup[iOrbWord] and 1024)=1024 then
@@ -2804,42 +2797,7 @@ begin
     end;
     iOrbWord:=iOrbWord+4;
   end;
-  //разбор 1 потока массива группы   1024 слова Орбиты
-  {while iOrbWord<=length(masGroup)-1 do
-  begin
-    //проверяем 11 бит, холостое слово или нет
-    if (masGroup[iOrbWord] and 1024)=1024 then
-    begin
-      //нашли начало слова
-      //взяли 10 мл. битов
-      wordToFile:=masGroup[iOrbWord] and 1023;
-      //след. 11 ст. битов
-      wordToFile:=(masGroup[iOrbWord+2] shl 10)+wordToFile;
-      //след. 11 ст. битов
-      wordToFile:=(masGroup[iOrbWord+4] shl 11)+wordToFile;
-      writeln(swtFile,intToStr(wordToFile));
-    end;
-    iOrbWord:=iOrbWord+5;
-  end;
-
-  iOrbWord:=1;
-  //разбор 2 потока массива группы   512 слов Орбиты
-  while iOrbWord<=round(length(masGroup)/2)-1 do
-  begin
-    //проверяем 11 бит, холостое слово или нет
-    if (masGroup[iOrbWord] and 1024)=1024 then
-    begin
-      //взяли 10 мл. битов
-      wordToFile:=masGroup[iOrbWord] and 1023;
-      //след. 11 ст. битов
-      wordToFile:=(masGroup[iOrbWord+2] shl 10)+wordToFile;
-      //след. 11 ст. битов
-      wordToFile:=(masGroup[iOrbWord+4] shl 11)+wordToFile;
-      writeln(swtFile,intToStr(wordToFile));
-    end;
-    iOrbWord:=iOrbWord+5;
-  end;}
-end;
+end;}
 //==============================================================================
 
 //==============================================================================

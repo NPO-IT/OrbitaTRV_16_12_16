@@ -423,7 +423,8 @@ begin
   WriteToFile(str);
   //
   WriteToFile('OBJ=');
-  WriteToFile('TMS-M.');
+  //WriteToFile('TMS-M.');
+  WriteToFile('.');
   //
   WriteToFile('SEANS=');
   WriteToFile('.');
@@ -468,10 +469,12 @@ begin
 
   //
   WriteToFile('INP=');
-  WriteToFile('RADIO.');
+  //WriteToFile('RADIO.');
+  WriteToFile('VIDEO.');
   //
   WriteToFile('FREQ=');
-  WriteToFile('2299400.');
+  //WriteToFile('2299400.');
+  WriteToFile('NO.');
   //
   WriteToFile('PPU=');
   WriteToFile('AUTO.');
@@ -632,10 +635,13 @@ begin
   //4b
   //rez
   WriteByteToByte(rez);
+  //4b
   //rez
   //WriteByteToByte(rez);
+
   //kpSev  4b
   WriteByteToByte(prKPSEV);
+
   //calend
   nowTime := Now;
   //h  (1b)
@@ -656,8 +662,12 @@ begin
   {rez1 (2b)}
   //1b
   WriteByteToByte(rez1M16);
+  //1b
+  //WriteByteToByte(rez1M16);
+
   //pr SEV. 1b
   WriteByteToByte(prSEV);
+
   //error (1b)
   WriteByteToByte(error);
   //rez2  (4b)
@@ -741,6 +751,7 @@ begin
   WriteByteToByte(rez);
   //rez
   WriteByteToByte(rez);
+
   //calend
   nowTime := Now;
   //h  (1b)
