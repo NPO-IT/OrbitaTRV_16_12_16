@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 286
-  Top = 145
+  Left = 201
+  Top = 168
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1057#1087#1077#1094#1080#1072#1083#1100#1085#1086#1077' '#1087#1088#1086#1075#1088#1072#1084#1084#1085#1086#1077' '#1086#1073#1077#1089#1087#1077#1095#1077#1085#1080#1077' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1080' '#1088#1077#1075#1080#1089#1090#1088#1072#1094#1080#1080
   ClientHeight = 688
-  ClientWidth = 1404
+  ClientWidth = 1699
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -648,7 +648,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
     OnClick = tlmWriteBClick
   end
   object Panel2: TPanel
@@ -656,7 +656,7 @@ object Form1: TForm1
     Top = 21
     Width = 726
     Height = 116
-    TabOrder = 5
+    TabOrder = 6
     object LabelHeadF: TLabel
       Left = 16
       Top = 8
@@ -1167,7 +1167,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 7
     OnClick = startReadACPClick
   end
   object startReadTlmB: TButton
@@ -1182,7 +1182,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 8
     OnClick = startReadTlmBClick
   end
   object propB: TButton
@@ -1197,7 +1197,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     OnClick = propBClick
   end
   object rb1: TRadioButton
@@ -1213,7 +1213,7 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 9
     TabStop = True
   end
   object rb2: TRadioButton
@@ -1228,7 +1228,14 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 10
+  end
+  object mmo1: TMemo
+    Left = 1400
+    Top = 16
+    Width = 297
+    Height = 577
+    TabOrder = 3
   end
   object TimerOutToDia: TTimer
     Enabled = False

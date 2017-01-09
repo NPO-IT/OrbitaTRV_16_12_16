@@ -88,6 +88,7 @@ type
     lbl1: TLabel;
     Button1: TButton;
     tmrCont: TTimer;
+    mmo1: TMemo;
     procedure startReadACPClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

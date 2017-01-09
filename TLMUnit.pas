@@ -411,20 +411,22 @@ begin
   iTlmHeadByteArray := 0;
   //Head//
   //dev name
-  WriteToFile('Complex=');
-  WriteToFile('MERATMS-M.SYSTEM=ORBITAIV.');
-  //data
-  WriteToFile('DATA=');
+  WriteToFile('COMPLEX=');
+  WriteToFile('NPOIT.SYSTEM=ORBITAIV.');
+  //date
+  WriteToFile('DATE=');
   DateTimeToString(str, 'yyyy:mm:dd.', Date);
   WriteToFile(str);
   //time
   WriteToFile('TIME=');
-  DateTimeToString(str, 'hh:mm:sszzz.', Time);
+  //DateTimeToString(str, 'hh:mm:sszzz.', Time);
+  DateTimeToString(str, 'hh:mm:ss.', Time);
   WriteToFile(str);
   //
   WriteToFile('OBJ=');
   //WriteToFile('TMS-M.');
-  WriteToFile('.');
+  WriteToFile('80_1000_017.');
+  //WriteToFile('.');
   //
   WriteToFile('SEANS=');
   WriteToFile('.');
@@ -477,7 +479,8 @@ begin
   WriteToFile('NO.');
   //
   WriteToFile('PPU=');
-  WriteToFile('AUTO.');
+  //WriteToFile('AUTO.');
+  WriteToFile('PPU1.');
   //
   WriteToFile('REF=');
   WriteToFile('.');
@@ -745,6 +748,7 @@ begin
   WriteByteToByte(wordNumInBlock);
   //time in mc (4b)
   timeBlock := (DateTimeToUnix(Time) * 1000) - msStartFile;
+  Form1.mmo1.Lines.Add(IntToStr(timeBlock)); //!!!
   WriteByteToByte(timeBlock);
   //2 раза по 4 байта(8b)
   //rez
