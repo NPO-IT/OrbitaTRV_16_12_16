@@ -3228,7 +3228,7 @@ begin
     tlm.iOneGC := 4;
     //старт записи в тлм
     tlm.StartWriteTLM;
-    flagStartWriteTime:=True;
+    //flagStartWriteTime:=True;
     tlm.WriteTLMhead;
     //флаг синхронизации для записи в массив цикла
     {data.}flSinxC := false;

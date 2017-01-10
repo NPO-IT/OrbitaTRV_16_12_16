@@ -197,7 +197,8 @@ begin
   //get time in ms
   //msTime := DateTimeToUnix(Time){ * 1000};
   //msTime :=GetTickCount;
-  msTimeF :=timeGetTime;
+
+  //msTimeF :=timeGetTime;
 
   //form1.mmo1.Lines.Add('Начало отсчета'+intToStr(msTime)+'mс');
   //create file name
@@ -648,8 +649,18 @@ begin
   //word in block (4b)
   WriteByteToByte(wordNumInBlock);
   //time in mc (4b)
-  timeBlock := (DateTimeToUnix(Time) * 1000) - msStartFile;
+  if blockNumInfile<>1 then
+  begin
+    lastTimeBlock:=timeBlock;
+  end; 
+
+  //timeBlock := (timeInt64{ * 1000}) - msStartFile;
+  msTime:=Trunc(msTimeF);
+  timeBlock:=msTime;
+
   WriteByteToByte(timeBlock);
+  //после того как начали первый блок записали начали считать время блоков
+  flagStartWriteTime:=True;
   {2 раза по 4 байта(8b)}
   //4b
   //rez
@@ -809,6 +820,8 @@ begin
   
 
   WriteByteToByte(timeBlock);
+  //после того как начали первый блок записали начали считать время блоков
+  flagStartWriteTime:=True;
   //2 раза по 4 байта(8b)
   //rez
   WriteByteToByte(rez);
