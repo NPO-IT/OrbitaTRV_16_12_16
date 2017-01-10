@@ -274,6 +274,7 @@ begin
 
        if (flagACPWork) then
        begin
+        //form1.mmo1.Lines.Add('1');
         //--
           //ѕри первом проходе считаем пороговое значение
         //if (not data.modC) then

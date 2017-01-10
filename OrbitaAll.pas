@@ -2415,6 +2415,8 @@ begin
           //включаем сбор данных с АЦП
           pModule.START_ADC();
           boolFlg:=true;
+
+          //form1.mmo1.Lines.Add('Старт!');
         end
         else
         begin
@@ -2438,6 +2440,12 @@ begin
     else
     //стоп
     begin
+      Form1.TimerOutToDia.Enabled:=false;
+      form1.TimerOutToDiaBus.Enabled:=false;
+      Form1.tmrCont.Enabled:=False;
+      Form1.TimerPlayTlm.Enabled:=False;
+      Form1.tmrForTestOrbSignal.Enabled:=false;
+
       flagEnd:=true;
       flagACPWork:=False;
       //Form1.mmoTestResult.Clear;
@@ -2446,6 +2454,7 @@ begin
       //sleep(50);
       //pModule.STOP_ADC();
 
+      //!!
       //wait(50);
 
       flagACPWork:=False;
@@ -2460,7 +2469,7 @@ begin
       begin
         FreeAndNil(dataMoth);
       end;
-      FreeAndNil(tlm);
+      //FreeAndNil(tlm);
 
       form1.diaSlowAnl.Series[0].Clear;
       form1.gistSlowAnl.Series[0].Clear;
@@ -2469,6 +2478,10 @@ begin
       form1.fastGist.Series[0].Clear;
       Form1.tempDia.Series[0].Clear;
       Form1.tempGist.Series[0].Clear;
+
+      form1.propB.Enabled:=true;
+      form1.tlmWriteB.Enabled:=false;
+
     end;
   end
   else
@@ -3262,6 +3275,9 @@ end;
 
 procedure TForm1.startReadTlmBClick(Sender: TObject);
 begin
+  form1.tlmWriteB.Enabled:=false;
+
+
   //объект для работы с сигналом
   if infNum=0 then
   begin

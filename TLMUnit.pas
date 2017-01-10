@@ -658,6 +658,33 @@ begin
   msTime:=Trunc(msTimeF);
   timeBlock:=msTime;
 
+  Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
+  Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
+
+  //Form1.mmo1.Lines.Add(' Current time '+IntToStr(timeInt64));
+  Form1.mmo1.Lines.Add('Разница текущего и предидущего измерения'+intToStr(timeBlock-lastTimeBlock));
+
+  //Form1.mmo1.Lines.Add(' Start time '+IntToStr(msStartFile));
+  if  (blockNumInfile=1) then
+  begin
+    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(0)); //!!!
+  end
+  else
+  begin
+    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(timeBlock-lastTimeBlock)); //!!!
+
+    testD:=testD+(timeBlock-lastTimeBlock);
+  end;
+  
+  if (blockNumInfile mod 4=0) then
+  begin
+    Form1.mmo1.Lines.Add('!!!');
+    Form1.mmo1.Lines.Add('1 кадр '+IntToStr(testD));
+    Form1.mmo1.Lines.Add('!!!');
+    testD:=0;
+  end;
+
+
   WriteByteToByte(timeBlock);
   //после того как начали первый блок записали начали считать время блоков
   flagStartWriteTime:=True;
@@ -757,8 +784,6 @@ end;
 //==============================================================================
 
 procedure Ttlm.WriteTLMBlockM08_04_02_01(msStartFile: cardinal);
-var
-  timeInt64:Cardinal;
 begin
   //block
   wordNumInBlock := {length(masCircle[data.reqArrayOfCircle])}masCircleSize;
