@@ -2326,6 +2326,17 @@ procedure TForm1.startReadACPClick(Sender: TObject);
 var
   intPointNum:integer;
 begin
+  intPointNum:=10000;
+
+  //объект для работы с сигналом
+  if infNum=0 then
+  begin
+    dataM16 := TdataM16.CreateData;
+  end
+  else
+  begin
+    dataMoth := TdataMoth.CreateData;
+  end;
 
 
   testOutFalg:=true;
@@ -2403,14 +2414,17 @@ begin
           acp.CreateApc;
           //включаем сбор данных с АЦП
           pModule.START_ADC();
-          //boolFlg:=true;
+          boolFlg:=true;
         end
         else
         begin
           //acp := Tacp.InitApc;
           //
           //pModule.START_ADC();
+
         end;
+        flagACPWork:=True;
+        //form1.TimerOutToDia.Enabled:=true;
       end
       else
       begin
@@ -2424,58 +2438,37 @@ begin
     else
     //стоп
     begin
-
-      //closeFile(swtFile);
-      {form1.startReadACP.Caption := 'Прием';
-      form1.startReadACP.Enabled:=false;
-      form1.tlmWriteB.Enabled := false;
-      form1.propB.Enabled:=true;
-      //flagEnd:=true;
-      // wait(50);
-      //подготовка к работе с 0
-      //data.Free;
-      //data := Tdata.CreateData;
-      pModule.STOP_ADC();
-      //flagEnd:=true;
-      //wait(50);
-      WaitForSingleObject(hReadThread,1500);
-      //Если поток создан , то завершение потока
-      if hReadThread <> THANDLE(nil) then
-      begin
-        CloseHandle(hReadThread);
-        hReadThread:=THANDLE(nil);
-      end;
       flagEnd:=true;
-      //acp.Free;
-      //pModule.ReleaseLInstance();
-      //pModule:=nil;
-      wait(50);}
-
-      //form1.Visible:=false;
-
-
-      //CloseFile(textTestFile);
+      flagACPWork:=False;
+      //Form1.mmoTestResult.Clear;
+      form1.startReadACP.Caption:= 'Прием';
       graphFlagFastP := false;
+      //sleep(50);
+      //pModule.STOP_ADC();
 
       //wait(50);
 
-      if ((form1.tlmWriteB.Enabled)and
-          (not form1.startReadTlmB.Enabled)and
-          (not form1.propB.Enabled))  then
+      flagACPWork:=False;
+      //wait(50);
+
+       //объект для работы с сигналом
+      if infNum=0 then
       begin
-        //остановим работу с АЦП
-        pModule.STOP_ADC();
+        FreeAndNil(dataM16);
+      end
+      else
+      begin
+        FreeAndNil(dataMoth);
       end;
-      //завершим все работающие циклы
-      flagEnd:=true;
-      //wait(50);
-      //while (True) do Application.ProcessMessages; //!!!!
-      //WinExec(PChar('OrbitaMAll.exe'), SW_ShowNormal);
-      //wait(20);
-      //завершим приложение по человечески.
-      Application.Terminate;
-      WinExec(PChar('OrbitaMAll.exe'), SW_ShowNormal);
-      //halt;
+      FreeAndNil(tlm);
+
+      form1.diaSlowAnl.Series[0].Clear;
+      form1.gistSlowAnl.Series[0].Clear;
+      form1.diaSlowCont.Series[0].Clear;
+      form1.fastDia.Series[0].Clear;
+      form1.fastGist.Series[0].Clear;
+      Form1.tempDia.Series[0].Clear;
+      Form1.tempGist.Series[0].Clear;
     end;
   end
   else
@@ -2567,6 +2560,8 @@ begin
       GetAddrList;
       //Установка списка правильных адресов
       SetOrbAddr;
+
+      GenTestAdrCorrect;
     end;
   end
   else

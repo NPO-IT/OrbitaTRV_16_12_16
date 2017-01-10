@@ -271,92 +271,100 @@ begin
         ReadThreadErrorNumber := 8;
         break;
       end;
-      //При первом проходе считаем пороговое значение
-      //if (not data.modC) then
-      //begin
-        buffDivide := length(buffer[RequestNumber xor $1]);
-        //Высчитываем значения порога для дальнейшего анализа массива.
-        {data.}porog := acp.SignalPorogCalk(Round(buffDivide/10), buffer,RequestNumber); //!!! Round(data.buffDivide/10)
-        //data.modC := true;
-      //end;
 
-     { for m:=1 to 3000 do
-      begin
-      form1.Memo1.Lines.Add(inttostr(m)+'  '+intTostr(buffer[RequestNumber xor $1][m]));
-      end;
+       if (flagACPWork) then
+       begin
+        //--
+          //При первом проходе считаем пороговое значение
+        //if (not data.modC) then
+        //begin
+          buffDivide := length(buffer[RequestNumber xor $1]);
+          //Высчитываем значения порога для дальнейшего анализа массива.
+          {data.}porog := acp.SignalPorogCalk(Round(buffDivide/10), buffer,RequestNumber); //!!! Round(data.buffDivide/10)
+          //data.modC := true;
+        //end;
 
-
-
-      while (true) do application.processmessages; }
-
-      //запись времени в блоках
-      if ((not tlm.tlmBFlag)and(flagStartWriteTime)) then
-      begin
-        msTimeF:=msTimeF+msOnACPBuf;
-        //msTime:=Trunc(msTimeF);
-      end;
-
-      //проверяем, что сигнал Орбиты подан.
-      if {data.}porog>200 then
-      begin
-        //Проверяем выбранную информативность
-        indJ := 0;
-        form2.Hide;
-        //M16
-        if infNum = 0 then
+       { for m:=1 to 3000 do
         begin
-          //если не закончена работа с ацп
-          if not flagEnd then
+        form1.Memo1.Lines.Add(inttostr(m)+'  '+intTostr(buffer[RequestNumber xor $1][m]));
+        end;
+
+
+
+        while (true) do application.processmessages; }
+
+        //запись времени в блоках
+        if ((not tlm.tlmBFlag)and(flagStartWriteTime)) then
+        begin
+          msTimeF:=msTimeF+msOnACPBuf;
+          //msTime:=Trunc(msTimeF);
+        end;
+
+        //проверяем, что сигнал Орбиты подан.
+        if {data.}porog>200 then
+        begin
+          //Проверяем выбранную информативность
+          indJ := 0;
+          form2.Hide;
+          //M16
+          if infNum = 0 then
           begin
-            //переписываем данные в кольц буфер.
-            while indJ < buffDivide do
+            //если не закончена работа с ацп
+            if not flagEnd then
             begin
-              dataM16.Add(Buffer[RequestNumber xor $1][indJ]);
-              inc(indJ);
+              //переписываем данные в кольц буфер.
+              while indJ < buffDivide do
+              begin
+                dataM16.Add(Buffer[RequestNumber xor $1][indJ]);
+                inc(indJ);
+              end;
+              //разбираем М16
+              dataM16.TreatmentM16;
             end;
-            //разбираем М16
-            dataM16.TreatmentM16;
+          end
+          //M8,4,2,1
+          else
+          begin
+            if not flagEnd then
+            begin
+              while indJ < buffDivide do
+              begin
+                dataMoth.WriteToFIFObuf(Buffer[RequestNumber xor $1][indJ]);
+                inc(indJ);
+              end;
+              //разбираем М8_4_2_1
+              dataMoth.TreatmentM8_4_2_1;
+            end;
           end;
         end
-        //M8,4,2,1
         else
         begin
-          if not flagEnd then
+          //CloseFile(textTestFile);
+          {data.graphFlagFastP := false;
+
+          //Application.ProcessMessages;
+          sleep(50);
+          //Application.ProcessMessages;
+
+          if ((form1.tlmWriteB.Enabled)and
+              (not form1.startReadTlmB.Enabled)and
+              (not form1.propB.Enabled))  then
           begin
-            while indJ < buffDivide do
-            begin
-              dataMoth.WriteToFIFObuf(Buffer[RequestNumber xor $1][indJ]);
-              inc(indJ);
-            end;
-            //разбираем М8_4_2_1
-            dataMoth.TreatmentM8_4_2_1;
+            //остановим работу с АЦП
+            pModule.STOP_ADC();
           end;
+          //завершим все работающие циклы
+          flagEnd:=true;
+          wait(100); }
+
+          //data.modC := false;
+          form2.show;
+
         end;
-      end
-      else
-      begin
-        //CloseFile(textTestFile);
-        {data.graphFlagFastP := false;
+        //--
+       end;
 
-        //Application.ProcessMessages;
-        sleep(50);
-        //Application.ProcessMessages;
 
-        if ((form1.tlmWriteB.Enabled)and
-            (not form1.startReadTlmB.Enabled)and
-            (not form1.propB.Enabled))  then
-        begin
-          //остановим работу с АЦП
-          pModule.STOP_ADC();
-        end;
-        //завершим все работающие циклы
-        flagEnd:=true;
-        wait(100); }
-
-        //data.modC := false;
-        form2.show;
-
-      end;
 
       // были ли ошибки или пользователь прервал ввод данных?
       if ReadThreadErrorNumber <> 0 then

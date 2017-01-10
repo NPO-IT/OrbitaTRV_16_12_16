@@ -202,6 +202,9 @@ var
   numP: integer;
   numPfast: integer;
 
+  //флаг перезапуска ПО
+  flagACPWork:Boolean;
+
   //время создания файла tlm в формате unixtime
   msTime:cardinal;
   msTimeF:Double;
