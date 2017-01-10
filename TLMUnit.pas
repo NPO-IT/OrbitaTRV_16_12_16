@@ -658,31 +658,31 @@ begin
   msTime:=Trunc(msTimeF);
   timeBlock:=msTime;
 
-  Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
-  Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
+  //Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
+  //Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
 
   //Form1.mmo1.Lines.Add(' Current time '+IntToStr(timeInt64));
-  Form1.mmo1.Lines.Add('–азница текущего и предидущего измерени€'+intToStr(timeBlock-lastTimeBlock));
+  //Form1.mmo1.Lines.Add('–азница текущего и предидущего измерени€'+intToStr(timeBlock-lastTimeBlock));
 
   //Form1.mmo1.Lines.Add(' Start time '+IntToStr(msStartFile));
-  if  (blockNumInfile=1) then
-  begin
-    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(0)); //!!!
-  end
-  else
-  begin
-    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(timeBlock-lastTimeBlock)); //!!!
+  //if  (blockNumInfile=1) then
+  //begin
+    //Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(0)); //!!!
+  //end
+  //else
+  //begin
+    //Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(timeBlock-lastTimeBlock)); //!!!
 
-    testD:=testD+(timeBlock-lastTimeBlock);
-  end;
+    //testD:=testD+(timeBlock-lastTimeBlock);
+  //end;
   
-  if (blockNumInfile mod 4=0) then
+  {if (blockNumInfile mod 4=0) then
   begin
     Form1.mmo1.Lines.Add('!!!');
     Form1.mmo1.Lines.Add('1 кадр '+IntToStr(testD));
     Form1.mmo1.Lines.Add('!!!');
     testD:=0;
-  end;
+  end;}
 
 
   WriteByteToByte(timeBlock);
@@ -817,14 +817,14 @@ begin
 
   //timeBlock := GetTickCount - msStartFile;
 
-  Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
-  Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
+  //Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
+  //Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
 
   //Form1.mmo1.Lines.Add(' Current time '+IntToStr(timeInt64));
-  Form1.mmo1.Lines.Add('–азница текущего и предидущего измерени€'+intToStr(timeBlock-lastTimeBlock));
+  //Form1.mmo1.Lines.Add('–азница текущего и предидущего измерени€'+intToStr(timeBlock-lastTimeBlock));
 
   //Form1.mmo1.Lines.Add(' Start time '+IntToStr(msStartFile));
-  if  (blockNumInfile=1) then
+  {if  (blockNumInfile=1) then
   begin
     Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(0)); //!!!
   end
@@ -833,15 +833,15 @@ begin
     Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(timeBlock-lastTimeBlock)); //!!!
 
     testD:=testD+(timeBlock-lastTimeBlock);
-  end;
+  end;}
   
-  if (blockNumInfile mod 4=0) then
+  {if (blockNumInfile mod 4=0) then
   begin
     Form1.mmo1.Lines.Add('!!!');
     Form1.mmo1.Lines.Add('1 кадр '+IntToStr(testD));
     Form1.mmo1.Lines.Add('!!!');
     testD:=0;
-  end;
+  end;}
   
 
   WriteByteToByte(timeBlock);

@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 336
-  Top = 186
+  Left = 344
+  Top = 168
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1057#1087#1077#1094#1080#1072#1083#1100#1085#1086#1077' '#1087#1088#1086#1075#1088#1072#1084#1084#1085#1086#1077' '#1086#1073#1077#1089#1087#1077#1095#1077#1085#1080#1077' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1080' '#1088#1077#1075#1080#1089#1090#1088#1072#1094#1080#1080
   ClientHeight = 688
-  ClientWidth = 1699
+  ClientWidth = 1129
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1152,6 +1152,7 @@ object Form1: TForm1
       Height = 25
       Caption = 'Button1'
       TabOrder = 2
+      Visible = False
       OnClick = Button1Click
     end
   end

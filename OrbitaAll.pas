@@ -3601,7 +3601,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  flagTrue:=true;
+  //flagTrue:=true;
   //WinExec(PChar('OrbitaMAll.exe'), SW_ShowNormal);
 end;
 
