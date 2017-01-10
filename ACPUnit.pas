@@ -44,8 +44,6 @@ var
   UserFlash: USER_FLASH_E2010;
   // структура параметров работы АЦП
   ap: ADC_PARS_E2010;
-  // кол-во отсчетов в запросе ReadData
-  DataStep: DWORD;
   // интерфейс модуля E20-10
   pModule: ILE2010;
   // название модуля
@@ -291,7 +289,12 @@ begin
 
       while (true) do application.processmessages; }
 
-
+      //запись времени в блоках
+      if ((not tlm.tlmBFlag)and(flagStartWriteTime)) then
+      begin
+        msTimeF:=msTimeF+msOnACPBuf;
+        //msTime:=Trunc(msTimeF);
+      end;
 
       //проверяем, что сигнал Орбиты подан.
       if {data.}porog>200 then
@@ -480,7 +483,12 @@ end;
 constructor Tacp.InitApc;
 begin
   //разм. мас АЦП
-  DataStep := 1024 * 1024;
+  //DataStep := 1024 * 1024;
+  //DataStep := 256 * 1024;
+  //DataStep := 128 * 1024;
+  //DataStep := 64 * 1024;
+  DataStep := 32 * 1024; 
+  msOnACPBuf:=DataStep/10000;
   //счетчик проходов АЦП
   countC := 0;
   // Инициализация флага ошибки. ошибок нет 0. сбросим флаги ошибки потока ввода
@@ -696,7 +704,10 @@ begin
     // межкадровая задержка в мс  . 1/131072= 0.00007. 7 микро секунд.
     // 480 Mbit/s
     ap.InterKadrDelay := 0.0;
-    DataStep := 1024 * 1024; // размер запроса
+    //DataStep := 1024 * 1024; // размер запроса
+    //DataStep := 256 * 1024;
+    //DataStep := 128 * 1024;
+    DataStep := 32 * 1024;
   end;
 
   // конфигурим входные каналы . Настройка 4-х аналоговых каналов.

@@ -153,12 +153,12 @@ begin
       if infNum = 0 then
       begin
         //M16
-        tlm.WriteTLMBlockM16(tlm.msTime);
+        tlm.WriteTLMBlockM16({tlm.}msTime);
       end
       else
       begin
         //другие информативности
-        tlm.WriteTLMBlockM08_04_02_01(tlm.msTime);
+        tlm.WriteTLMBlockM08_04_02_01({tlm.}msTime);
       end;
       {form1.WriteTLMTimer.Enabled:=true;}
     end;

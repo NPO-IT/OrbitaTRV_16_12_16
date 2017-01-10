@@ -3226,7 +3226,9 @@ begin
     form1.startReadACP.Enabled:=false;
     //нач иниц. счетчика установки в 1 ГЦ
     tlm.iOneGC := 4;
+    //старт записи в тлм
     tlm.StartWriteTLM;
+    flagStartWriteTime:=True;
     tlm.WriteTLMhead;
     //флаг синхронизации для записи в массив цикла
     {data.}flSinxC := false;
@@ -3255,6 +3257,9 @@ begin
     ShowMessage('Файл записан!');
     //файл tlm записали, можем завершить прием
     form1.startReadACP.Enabled:=true;
+    msTime:=0;
+    msTimeF:=0.0;
+    flagStartWriteTime:=false;
   end;
   //от запуска с останову и наоборот
   tlm.tlmBFlag := not tlm.tlmBFlag;

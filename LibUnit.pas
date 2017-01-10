@@ -201,7 +201,16 @@ var
   //номер выводимой точки на гистограмму
   numP: integer;
   numPfast: integer;
-  
+
+  //время создания файла tlm в формате unixtime
+  msTime:cardinal;
+  msTimeF:Double;
+  // кол-во отсчетов в запросе ReadData
+  DataStep: {DWORD}Longword;
+  //время в мс на 1 буфер АЦП
+  msOnACPBuf:Double;
+  flagStartWriteTime:Boolean=false;
+
   procedure OutMF(errMF:Integer);
   procedure OutMG(errMG:Integer);
   //функции для проверки соответствует текущая группа или цикл нужной

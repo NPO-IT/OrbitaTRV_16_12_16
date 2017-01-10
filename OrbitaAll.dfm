@@ -1235,6 +1235,7 @@ object Form1: TForm1
     Top = 16
     Width = 297
     Height = 577
+    ScrollBars = ssBoth
     TabOrder = 3
   end
   object TimerOutToDia: TTimer

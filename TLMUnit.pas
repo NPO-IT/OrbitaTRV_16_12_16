@@ -3,7 +3,7 @@ unit TLMUnit;
 interface
 
 uses
-  Classes,DateUtils,LibUnit,SysUtils,Dialogs,OutUnit;
+  Classes,DateUtils,LibUnit,SysUtils,Dialogs,OutUnit,Windows,mmsystem;
 
 
 type
@@ -15,7 +15,8 @@ type
     //для генерации имени тлм файла
     fileName: string;
     //время создания файла tlm в формате unixtime
-    msTime: cardinal;
+    //msTime: cardinal;
+
     //номер записываемого блока
     blockNumInfile: Cardinal;
     //колич. слов в блоке
@@ -84,6 +85,11 @@ type
     arr3: array[0..32799] of byte;
     arr4: array[0..16415] of byte;
     arr5: array[0..8223] of byte;
+
+
+    //!!!
+    lastTimeBlock:Cardinal;
+    testD:Cardinal;
 
     //запись побайтно заголовка файла. формир. буфера
     procedure WriteToFile(str: string); overload;
@@ -170,6 +176,12 @@ begin
   tlmPlaySpeed := 4;
   //при иниц. записи в файл тлм нет
   flagWriteTLM := false;
+  msTime:=0;
+  msTimeF:=0.0;
+
+  //!!
+  lastTimeBlock:=0;
+  testD:=0;
 end;
 //==============================================================================
 
@@ -183,7 +195,11 @@ var
   strLen:integer;
 begin
   //get time in ms
-  msTime := DateTimeToUnix(Time) * 1000;
+  //msTime := DateTimeToUnix(Time){ * 1000};
+  //msTime :=GetTickCount;
+  msTimeF :=timeGetTime;
+
+  //form1.mmo1.Lines.Add('Начало отсчета'+intToStr(msTime)+'mс');
   //create file name
   case infNum of
     //M16
@@ -730,6 +746,8 @@ end;
 //==============================================================================
 
 procedure Ttlm.WriteTLMBlockM08_04_02_01(msStartFile: cardinal);
+var
+  timeInt64:Cardinal;
 begin
   //block
   wordNumInBlock := {length(masCircle[data.reqArrayOfCircle])}masCircleSize;
@@ -747,8 +765,49 @@ begin
   //word in block (4b)
   WriteByteToByte(wordNumInBlock);
   //time in mc (4b)
-  timeBlock := (DateTimeToUnix(Time) * 1000) - msStartFile;
-  Form1.mmo1.Lines.Add(IntToStr(timeBlock)); //!!!
+
+  //timeInt64:= DateTimeToUnix(Time);
+  //timeInt64:= timeGetTime;
+
+  if blockNumInfile<>1 then
+  begin
+    lastTimeBlock:=timeBlock;
+  end;
+
+
+  //timeBlock := (timeInt64{ * 1000}) - msStartFile;
+  msTime:=Trunc(msTimeF);
+  timeBlock:=msTime;
+
+  //timeBlock := GetTickCount - msStartFile;
+
+  Form1.mmo1.Lines.Add(' block# '+IntToStr(blockNumInfile));
+  Form1.mmo1.Lines.Add(' time '+IntToStr(timeBlock));
+
+  //Form1.mmo1.Lines.Add(' Current time '+IntToStr(timeInt64));
+  Form1.mmo1.Lines.Add('Разница текущего и предидущего измерения'+intToStr(timeBlock-lastTimeBlock));
+
+  //Form1.mmo1.Lines.Add(' Start time '+IntToStr(msStartFile));
+  if  (blockNumInfile=1) then
+  begin
+    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(0)); //!!!
+  end
+  else
+  begin
+    Form1.mmo1.Lines.Add('D_Time '+IntToStr(timeBlock)+' '+intToStr(timeBlock-lastTimeBlock)); //!!!
+
+    testD:=testD+(timeBlock-lastTimeBlock);
+  end;
+  
+  if (blockNumInfile mod 4=0) then
+  begin
+    Form1.mmo1.Lines.Add('!!!');
+    Form1.mmo1.Lines.Add('1 кадр '+IntToStr(testD));
+    Form1.mmo1.Lines.Add('!!!');
+    testD:=0;
+  end;
+  
+
   WriteByteToByte(timeBlock);
   //2 раза по 4 байта(8b)
   //rez
